@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atividade calcular média</title>
+  </head>
+  <body>
+    <script>
+      // body configuração do body
+      var body = document.body;
+      body.style.margin = "0px";
+
+      //Seccion
+
+      var secao = document.createElement("secction");
+
+      // Div que está pegando todos os label e inputs
+
+      var div_input = document.createElement("div");
+      var div_input_style = div_input.style;
+      div_input_style.height = "500px";
+      div_input_style.width = "800px";
+      div_input_style.margin = "auto";
+      div_input_style.padding = "30px";
+      div_input.style.background = "#B5DBD8";
+      div_input_style.textAlign = "center";
+
+      // configurando label e os inputs
+      // funcao de criar os label
+
+      function criarLabel(label, num) {
+        label.textContent = num + "ª Nota";
+        let label1_style = label.style;
+        label1_style.display = "inline";
+        body.style.color = "#3302DC";
+        return label;
+      }
+
+      // variaveis dos Label
+
+      var label1 = document.createElement("label");
+      var label2 = document.createElement("label");
+      var label3 = document.createElement("label");
+      var label4 = document.createElement("label");
+
+      // Inputs
+
+      function criaInputs(input) {
+        const nota1_m = parseFloat(input.value);
+        input.placeholder = "0.0";
+        input.type = "number";
+        let input_style = input.style;
+        input_style.width = "50px";
+        input_style.margin = "20px";
+        input_style.height = "30px";
+        input_style.webkitAppearance = "none";
+        input_style.display = "inline";
+        input_style.textAlign = "center";
+
+        return input;
+      }
+      // ----------- variavel dos inputs
+
+      var input1 = document.createElement("input");
+      input1.setAttribute("id", "id1");
+      input1.addEventListener("blur", msgErro);
+
+      var input2 = document.createElement("input");
+      input2.addEventListener("blur", msgErro);
+
+      var input3 = document.createElement("input");
+      input3.addEventListener("blur", msgErro);
+
+      var input4 = document.createElement("input");
+      input4.addEventListener("blur", msgErro);
+
+      // funcao P , Para mandar alerta
+
+      var textoAlerta = document.createElement("span");
+      function span(span) {
+        span.style.color = "red";
+        span.style.display = "block";
+        return span;
+      }
+
+      //Botão de verificação
+
+      let btn = document.createElement("button");
+      btn.textContent = "Calcular";
+
+      let btn_style = btn.style;
+      btn_style.marginTop = "30px";
+      btn_style.width = "100px";
+      btn_style.height = "40px";
+      btn_style.fontSize = "20px";
+      btn_style.color = "#3302DC";
+
+      // Adicionando as TAGS
+
+      document.body.appendChild(secao);
+      secao.appendChild(div_input);
+      //Funcao Adicionar a tags
+
+      var h2 = document.createElement("h2");
+      h2.style.fontSize = "20px";
+      h2.style.color = "black";
+      h2.style.marginTop = "40px";
+
+      function total(input1, input2, input3, input4) {
+        var n1 = parseFloat(input1.value);
+        var n2 = parseFloat(input2.value);
+        var n3 = parseFloat(input3.value);
+        var n4 = parseFloat(input4.value);
+
+        var result = (n1 + n2 + n3 + n4) / 4;
+
+        if (
+          n1 >= 0 &&
+          n2 >= 0 &&
+          n3 >= 0 &&
+          n4 >= 0 &&
+          n1 <= 10 &&
+          n2 <= 10 &&
+          n3 <= 10 &&
+          n4 <= 10
+        ) {
+          if (result <= 5) {
+            h2.style.color = "orange";
+            h2.textContent = "Sua media é : " + result + " você está Reprovado";
+            tiraValor(input1, input2, input3, input4);
+          } else if (result > 5 && result <= 7) {
+            h2.style.color = "yellow";
+
+            h2.textContent =
+              "Sua media é : " + result + " você está de Recuperação";
+            tiraValor(input1, input2, input3, input4);
+          } else {
+            h2.style.color = "green";
+            h2.textContent = "Sua media é : " + result + " você está Aprovado";
+            tiraValor(input1, input2, input3, input4);
+            console.log(result);
+          }
+        } else {
+          h2.style.color = "red";
+          h2.textContent =
+            "Todos os campos devem estar preenchidos corretamentes";
+          tiraValor(input1, input2, input3, input4);
+        }
+      }
+
+      function tiraValor(n1, n2, n3, n4) {
+        n1.value = "";
+        n2.value = "";
+        n3.value = "";
+        n4.value = "";
+      }
+
+      function h2Branco(n1, n2, n3, n4) {
+        n1.textContent = "";
+      }
+
+      function adicionarElementos(label, input) {
+        div_input.appendChild(label);
+        div_input.appendChild(input);
+      }
+
+      function msgErro(input) {
+        var input = this;
+        if (input.value) {
+          if (input.value >= 0 && input.value <= 10) {
+            spanBranco();
+          } else {
+            msg();
+          }
+        } else {
+          msg1();
+        }
+      }
+
+      function spanBranco() {
+        textoAlerta.textContent = "";
+      }
+      function msg1() {
+        textoAlerta.textContent = "Nao pode ter espaço em branco";
+      }
+      function msg() {
+        textoAlerta.textContent = "Digite apenas numeros de 0 a 10";
+      }
+
+      btn.addEventListener("click", () => {
+        total(input1, input2, input3, input4);
+      });
+     
+      var h1 = document.createElement('h1')
+      h1.style.color='blue'
+      h1.style.textAlign='center'
+      h1.textContent='Digite as Notas: '
+      div_input.appendChild(h1)
+      adicionarElementos(criarLabel(label1, 1), criaInputs(input1));
+      adicionarElementos(criarLabel(label2, 2), criaInputs(input2));
+      adicionarElementos(criarLabel(label3, 3), criaInputs(input3));
+      adicionarElementos(criarLabel(label4, 4), criaInputs(input4));
+
+      var divBtn = document.createElement("div");
+      divBtn.appendChild(span(textoAlerta));
+      divBtn.style.textAlign = "center";
+
+      div_input.appendChild(divBtn);
+
+      divBtn.appendChild(btn);
+      divBtn.appendChild(h2);
+    </script>
+  </body>
+</html>
